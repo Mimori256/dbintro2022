@@ -8,3 +8,6 @@ insert into result (date, color, timeRange, result, opening, opponentName, moves
 
 insert into opponent values ("A", "1-0", "dude");
 insert into opponent values ("B", "0-1", "chick");
+
+insert into annotation values (1, 11, "I should've moved the bishop to d2 to prevent the knight from being pinnded");
+insert into annotation values (1, 25, "I should've played a4 because I could capture b pawn for free");
