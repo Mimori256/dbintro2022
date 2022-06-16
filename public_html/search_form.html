@@ -1,0 +1,48 @@
+<html>
+<head><title>ゲーム検索</title></head>
+<body>
+<h1>ゲーム検索</h1>
+<h3>検索要素</h3>
+<form action="game_search.php" method="post">
+<table border="1" cellspacing="0">
+<tr>
+<td>ID</td>
+<td><input type="text" name="gameid"></td>
+</tr>
+<tr>
+<td>色</td>
+<td>
+  <select name="color" size="2">
+    <option value="white">white</option>
+    <option value="black">black</option>
+  </select>
+</td>
+</tr>
+<tr>
+<td>タイムレンジ</td>
+<td><input type="text" name="timeRange"></td>
+</tr>
+<tr>
+<td>結果</td>
+<td>
+  <select name="gameResult" size="2">
+    <option value="win">勝ち</option>
+    <option value="lose">負け</option>
+  </select>
+</td>
+</tr>
+<tr>
+<td>オープニング</td>
+<td><input type="text" name="opening"></td>
+</tr>
+<tr>
+<td>対戦相手</td>
+<td><input type="text" name="opponentName"></td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<input type="submit" name="submit" value="検索"></td>
+</tr>
+</table>
+</body>
+</html>
