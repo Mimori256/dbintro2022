@@ -4,11 +4,21 @@
 </head>
 <?php
 
+function add_quoations($text) {
+  return '"' .$text. '"';
+}
+
+
 function form_element($element) {
   $element = str_replace('[', '', $element);
   $element = str_replace(']', '', $element);
   $element = explode(" ", $element, 2)[1];
   $element = str_replace('"', '', $element);
+  $last_char = substr($element, -1);
+
+  if (ctype_space($last_char)) {
+    $element = substr($element, 0, -1);
+  }
   return $element;
 }
 
@@ -22,7 +32,6 @@ function parse_moves($moves) {
 
 function parse_time($time_range) {
   $tmp_list = explode("+", $time_range, 2);
-  var_dump($tmp_list);
   $base_time = intval($tmp_list[0]);
   $increment = intval($tmp_list[1]);
 
@@ -52,11 +61,18 @@ function parse_pgn($pgn, $color) {
   $time_range = parse_time(form_element($splited_data[13]));
   $opening = form_element($splited_data[15]);
   $moves = parse_moves($splited_data[18]);
+  $opponent = '';
 
-  return [$date, $result, $time_range, $opening, $moves];
+  if ($color == 'white') {
+    $opponent = $black_player;
+  } else {
+    $opponent = $white_player;
+  }
+
+  return [$date, $result, $time_range, $opening, $moves, $opponent];
 }
 
- 
+
 $host = "localhost";
 if (!$conn = mysqli_connect($host, "s2110184", "hogehoge")){
     die("データベース接続エラー.<br />");
@@ -69,7 +85,7 @@ $color = "";
 $tmp_list = "";
 
 if(isset($_POST["color"]) && ($_POST["color"] != "")) {
-  $color = $_POST["color"];
+  $color = add_quoations($_POST["color"]);
 }
 
 if(isset($_POST["pgn"]) && ($_POST["pgn"] != "")) {
@@ -82,19 +98,22 @@ if ($color != "" && $pgn != "") {
   print("データが不正です");
 }
 
-$date = $tmp_list[0];
+$date = add_quoations($tmp_list[0]);
 $result = $tmp_list[1];
-$time_range = $tmp_list[2];
-$opening = $tmp_list[3];
-$moves = $tmp_list[4];
-$values = join("," , $result);
+$time_range = add_quoations($tmp_list[2]);
+$opening = add_quoations($tmp_list[3]);
+$moves = add_quoations($tmp_list[4]);
+$opponent = add_quoations($tmp_list[5]);
+$values = join("," , [$date, $color, $result, $time_range, $opening, $moves, $opponent]);
 
-$sql = "insert into result (date, gameResult, timeRange, opening, moves) values (" .$values. ")";
+$sql = "insert into result (date,  color, gameResult, timeRange, opening, moves, opponent) values (" .$values. ")";
 print($sql);
 print("\n");
 
 $res = mysqli_query($conn, $sql);
 $mysqli_free_result($res);
+
+print($res);
 
 ?>
 
