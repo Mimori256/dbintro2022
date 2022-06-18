@@ -32,21 +32,13 @@ function parse_time($time_range) {
 $filename = 'sample.pgn';
 $contents = file_get_contents($filename);
 
-
 $splited_data = explode("\n", $contents);
 
 $date = form_element($splited_data[2]);
-#$white_player = form_element($splited_data[2]);
+$white_player = form_element($splited_data[3]);
+$black_player = form_element($splited_data[4]);
 $result = form_element($splited_data[5]);
 $time_range = parse_time(form_element($splited_data[13]));
 $opening = form_element($splited_data[15]);
 $move = parse_moves($splited_data[18]);
-print($move);
-print("\n");
-print($result);
-print("\n");
-print($time_range);
-print("\n");
-print($opening);
-print("\n");
 ?>
