@@ -11,8 +11,8 @@ function add_quoations($text) {
 
 function update_overall_result($overall_result, $result) {
   $tmp_list = explode("-", $overall_result);
-  $win = intval(tmp_list[0]);
-  $lose = intval(tmp_list[1]);
+  $win = intval($tmp_list[0]);
+  $lose = intval($tmp_list[1]);
   if ($result) {
     $win++;
   } else {
@@ -144,15 +144,17 @@ $is_contain_name = false;
 $overall_result = "";
 
 while ($row = mysqli_fetch_array($res)) {
-  if ($row["name"] == $opponent) {
+  if (add_quoations($row["name"]) == $opponent) {
     $overall_result = $row["overallResult"];
+    $is_contain_name = true;
   }
 }
 
 print_r($name_list);
 
-if (!$is_contain_name)) {
+if (!$is_contain_name) {
   #新しくリストに追加
+  print("add_new_opponent");
   $overall_result = '';
   if ($result == 'true') {
     $overall_result = '"1-0"';
@@ -169,6 +171,8 @@ if (!$is_contain_name)) {
   $new_overall_result = add_quoations(update_overall_result($overall_result, $result));
   $sql = "update opponent set overallResult=" .$new_overall_result. "where name=" .$opponent;
   print($sql);
+  $res = mysqli_query($conn, $sql);
+}
 
 ?>
 
