@@ -43,12 +43,12 @@ function check_winner($result, $color) {
 
 
 function parse_pgn($pgn, $color) {
-  $splited_data = explode("\n", $contents);
+  $splited_data = explode("\n", $pgn);
 
   $date = form_element($splited_data[2]);
   $white_player = form_element($splited_data[3]);
   $black_player = form_element($splited_data[4]);
-  $result = check_winner(form_element($splited_data[5]));
+  $result = check_winner(form_element($splited_data[5]), $color);
   $time_range = parse_time(form_element($splited_data[13]));
   $opening = form_element($splited_data[15]);
   $moves = parse_moves($splited_data[18]);
@@ -68,16 +68,16 @@ $condition = "";
 $color = "";
 $tmp_list = "";
 
-if(isset($_POST["color"] && ($_POST["color"] != "")) {
+if(isset($_POST["color"]) && ($_POST["color"] != "")) {
   $color = $_POST["color"];
 }
 
-if(isset($_POST["pgn"] && ($_POST["pgn"] != "")) {
+if(isset($_POST["pgn"]) && ($_POST["pgn"] != "")) {
   $pgn = $_POST["pgn"];
 }
 
 if ($color != "" && $pgn != "") {
-  $tmp_list = parse_pgn($pgn);
+  $tmp_list = parse_pgn($pgn, $color);
 } else {
   print("データが不正です");
 }
@@ -95,3 +95,8 @@ print("\n");
 
 $res = mysqli_query($conn, $sql);
 $mysqli_free_result($res);
+
+?>
+
+</body>
+</html>
