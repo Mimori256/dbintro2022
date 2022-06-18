@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>ゲーム追加</title>
+  </head>
+  <body>
+    <h1>ゲーム追加</h1>
+    <p>pgnファイルを下にペーストして、ボタンを押してください</p>
+    <form action="game_add.php" method="post">
+      <p>PGNファイル</p>
+      <textarea name="pgn"></textarea>
+      <br>
+      <p>あなたの駒の色</p>
+      <select name="color" size="2">
+        <option value="white">white</option>
+        <option value="black">black</option>
+      </select>
+      <br><br>
+      <input type="submit" name="submit" value="追加">
+  </body>
+</html>
