@@ -93,7 +93,7 @@ while($row = mysqli_fetch_array($res)) {
     print("<td>".$row["opening"]."</td>");
     print("<td>".$row["opponentName"]."</td>");
     print("<td><a href= \"query2.php?bid=".$row["bid"]."\">更新</a></td>");
-    print("<td><a href= \"library_delete.php?bid=".$row["bid"]."\">削除</a></td>");
+    print("<td><a href= \"game_delete.php?id=".$row["id"]."\">削除</a></td>");
     print("</tr>");
 }
 print("</table>");
