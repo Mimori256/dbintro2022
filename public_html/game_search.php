@@ -82,7 +82,7 @@ $sql = "SELECT * FROM result ".$condition." ORDER BY id";
 print($sql);
 $res = mysqli_query($conn, $sql);
 print("<table border=\"1\">");
-print("<tr><td>ID</td><td>日付</td><td>色</td><td>タイムレンジ</td><td>結果</td><td>オープニング</td><td>対戦相手</td><td>更新</td><td>削除</td></tr>");
+print("<tr><td>ID</td><td>日付</td><td>色</td><td>タイムレンジ</td><td>結果</td><td>オープニング</td><td>対戦相手</td><td>詳細</td><td>削除</td></tr>");
 while($row = mysqli_fetch_array($res)) {
     print("<tr>");
     print("<td>".$row["id"]."</td>");
@@ -92,7 +92,7 @@ while($row = mysqli_fetch_array($res)) {
     print("<td>".$row["gameResult"]."</td>");
     print("<td>".$row["opening"]."</td>");
     print("<td>".$row["opponentName"]."</td>");
-    print("<td><a href= \"query2.php?bid=".$row["bid"]."\">更新</a></td>");
+    print("<td><a href= \"game_detail.php?id=".$row["id"]."\">詳細</a></td>");
     print("<td><a href= \"game_delete.php?id=".$row["id"]."\">削除</a></td>");
     print("</tr>");
 }
