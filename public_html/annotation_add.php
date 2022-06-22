@@ -14,7 +14,7 @@ $id = $_POST['gameid'];
 $moveNumber = $_POST['moveNumber'];
 $message = $_POST['message'];
 $values = join(',', [$id, $moveNumber, $message]);
-$back_link = "<a href= \"game_detail.php?id=".$id."\">ゲーム詳細に戻る</a>";
+$back_link = "<a href= \"game_detail.php?id=$id\">ゲーム詳細に戻る</a>";
 
 #値が入力されているなら
 if ($moveNumber != '' && $message != '') {
@@ -22,10 +22,8 @@ if ($moveNumber != '' && $message != '') {
   $res = mysqli_query($conn, $sql);
   print("<p>アノテーションの挿入が完了しました</p>");
   print("<p>下のリンクをクリックして、ゲーム詳細に戻ってください</p>");
-  print($back_link);
 } else {
   print("エラーが発生しました。正しく値を入力してください");
-  print($back_link);
 }
 
 ?>
