@@ -2,6 +2,30 @@
 <head><title>アノテーションの追加</title></head>
 <body>
 <?php
+
+function add_color_tag($element) {
+  return "<font color='lightblue'>$element</font>";
+}
+
+
+function add_index($moves) {
+  $splited_move = explode(" ", $moves);
+  $length = count($splited_move);
+  $move_index = '';
+  $first_char = '';
+
+  for ($i = 0; $i < $length; $i++) {
+    $first_char = substr($splited_move[$i], 0, 1);
+    if ($first_char != '0' && $first_char != '1') {
+      $move_index = add_color_tag(strval($i+1) . '. ');
+      $splited_move[$i] = $move_index . $splited_move[$i];
+    }
+  }
+
+  return join(" ", $splited_move); 
+ }
+
+
 $id = $_GET['gameid'];
 $host = "localhost";
 if (!$conn = mysqli_connect($host, "s2110184", "hogehoge")){
@@ -18,7 +42,7 @@ print("<table border=\"1\">");
 print("<tr>棋譜</tr>");
 while ($row=mysqli_fetch_array($res)) {
     print("<tr>");
-    print("<td>".$row["moves"]."</td>");
+    print("<td>".add_index($row["moves"])."</td>");
 }
 
 print("</tr>");
