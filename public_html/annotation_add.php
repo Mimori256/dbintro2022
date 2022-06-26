@@ -31,6 +31,8 @@ if ($moveNumber != '' && $message != '') {
   print("エラーが発生しました。正しく値を入力してください");
 }
 
+print($back_link);
+
 ?>
 </body>
 </html>

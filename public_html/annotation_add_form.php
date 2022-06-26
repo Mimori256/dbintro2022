@@ -4,7 +4,7 @@
 <?php
 
 function add_color_tag($element) {
-  return "<font color='lightblue'>$element</font>";
+  return "<font color='green'>$element</font>";
 }
 
 
@@ -17,7 +17,7 @@ function add_index($moves) {
   for ($i = 0; $i < $length; $i++) {
     $first_char = substr($splited_move[$i], 0, 1);
     if ($first_char != '0' && $first_char != '1') {
-      $move_index = add_color_tag(strval($i+1) . '. ');
+      $move_index = add_color_tag(strval($i+1) . '.');
       $splited_move[$i] = $move_index . $splited_move[$i];
     }
   }

@@ -1,6 +1,7 @@
 <html>
 <head><title>配列データの取得</title></head>
 <body>
+<p>ここで登録されたアノテーション一覧を見ることができます。また、アノテーションの削除もできます。</p>
 <table border="1">
 <tr><td>gameID</td><td>ムーブ番号</td><td>アノテーション</td><td>削除</td></tr>
 <?php
@@ -23,5 +24,7 @@ while($row = mysqli_fetch_array($res)) {
 mysqli_free_result($res);
 ?>
 </table>
+<br><br>
+<a href='index.html'>トップに戻る</a>
 </body>
 </html>

@@ -2,6 +2,7 @@
 <head><title>配列データの取得</title></head>
 <body>
 <table border="1">
+<p>保存されているゲームに記載されている対戦相手の一覧です。各対戦相手の名前と、今までの勝敗の計算は、ゲームの追加時に自動で行われています。また、各対戦相手の備考を、備考の編集から行うことができます。
 <tr><td>対戦相手の名前</td><td>今までの勝敗</td><td>備考</td><td>備考の編集</td></tr>
 <?php
 $host = "localhost";
@@ -25,6 +26,8 @@ while($row = mysqli_fetch_array($res)) {
   print("</tr>\n");
 }
 mysqli_free_result($res);
+$back_link = '<p><a href="index.html">トップに戻る</a></p>';
+print($back_link);
 ?>
 </table>
 </body>

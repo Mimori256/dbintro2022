@@ -1,6 +1,7 @@
 <html>
-<head><title>配列データの取得</title></head>
+<head><title>保存されているゲーム一覧</title></head>
 <body>
+<p>保存されているゲーム一覧です。詳細をクリックすることで、そのゲームの棋譜やアノテーションを確認できます</p>
 <table border="1">
 <tr><td>色</td><td>レンジ</td><td>勝敗</td><td>オープニング</td><td>対戦相手</td><td>詳細</td><td>削除</td></tr>
 <?php
