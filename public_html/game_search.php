@@ -42,9 +42,11 @@ if(isset($_POST["gameResult"]) && ($_POST["gameResult"] != "")){
     $winOrLose = true;
     
     if ($gameResult == "win"){
-      $winOrLose = true;
+      $winOrLose = 1;
+    } else if ($gameResult == "lose") {
+      $winOrLose = -1;
     } else {
-      $winOrLose = false;
+      $winOrLose = 0;
     }
 
     $auth = str_replace("%", "\%", $auth);

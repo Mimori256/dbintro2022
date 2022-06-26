@@ -3,6 +3,11 @@
 </head>
 <body>
 <?php
+
+function add_quotations($text) {
+  return '"' .$text. '"';
+}
+
 $host = "localhost";
 if (!$conn = mysqli_connect($host, "s2110184", "hogehoge")){
     die("データベース接続エラー.<br />");
@@ -12,7 +17,7 @@ mysqli_set_charset($conn, "utf8");
 
 $id = $_POST['gameid'];
 $moveNumber = $_POST['moveNumber'];
-$message = $_POST['message'];
+$message = add_quotations($_POST['message']);
 $values = join(',', [$id, $moveNumber, $message]);
 $back_link = "<a href= \"game_detail.php?id=$id\">ゲーム詳細に戻る</a>";
 

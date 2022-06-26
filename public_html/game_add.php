@@ -4,7 +4,7 @@
 </head>
 <?php
 
-function add_quoations($text) {
+function add_quotations($text) {
   return '"' .$text. '"';
 }
 
@@ -13,9 +13,12 @@ function update_overall_result($overall_result, $result) {
   $tmp_list = explode("-", $overall_result);
   $win = intval($tmp_list[0]);
   $lose = intval($tmp_list[1]);
-  if ($result) {
+  if ($result == 1) {
     $win++;
+  } else if ($result == -1) {
+    $lose++;
   } else {
+    $win++;
     $lose++;
   }
   $new_overall_result = strval($win) . "-" . strval($lose);
@@ -61,16 +64,18 @@ function parse_time($time_range) {
 function check_winner($result, $color) {
   if ($result == '1-0') {
     if ($color == 'white') {
-      return 'true';
+      return 1;
     } else {
-      return 'false';
+      return -1;
+    }
+  } else if ($result == '0-1') {
+    if ($color == 'black') {
+      return 1;
+    } else {
+      return -1;
     }
   } else {
-    if ($color == 'black') {
-      return 'true';
-    } else {
-      return 'false';
-    }
+    return 0;
   }
 }
 
@@ -109,7 +114,7 @@ $color = "";
 $tmp_list = "";
 
 if(isset($_POST["color"]) && ($_POST["color"] != "")) {
-  $color = add_quoations($_POST["color"]);
+  $color = add_quotations($_POST["color"]);
 }
 
 if(isset($_POST["pgn"]) && ($_POST["pgn"] != "")) {
@@ -122,12 +127,12 @@ if ($color != "" && $pgn != "") {
   print("データが不正です");
 }
 
-$date = add_quoations($tmp_list[0]);
+$date = add_quotations($tmp_list[0]);
 $result = $tmp_list[1];
-$time_range = add_quoations($tmp_list[2]);
-$opening = add_quoations($tmp_list[3]);
-$moves = add_quoations($tmp_list[4]);
-$opponent = add_quoations($tmp_list[5]);
+$time_range = add_quotations($tmp_list[2]);
+$opening = add_quotations($tmp_list[3]);
+$moves = add_quotations($tmp_list[4]);
+$opponent = add_quotations($tmp_list[5]);
 $values = join("," , [$date, $color,  $result, $time_range, $opening, $moves, $opponent]);
 $sql = "insert into result (date,  color, gameResult, timeRange, opening, moves, opponentName) values (" .$values. ")";
 print($sql);
@@ -144,7 +149,7 @@ $is_contain_name = false;
 $overall_result = "";
 
 while ($row = mysqli_fetch_array($res)) {
-  if (add_quoations($row["name"]) == $opponent) {
+  if (add_quotations($row["name"]) == $opponent) {
     $overall_result = $row["overallResult"];
     $is_contain_name = true;
   }
@@ -168,7 +173,7 @@ if (!$is_contain_name) {
   #$mysqli_free_result($res);
 } else {
   #そうではない場合、結果を書き換える
-  $new_overall_result = add_quoations(update_overall_result($overall_result, $result));
+  $new_overall_result = add_quotations(update_overall_result($overall_result, $result));
   $sql = "update opponent set overallResult=" .$new_overall_result. "where name=" .$opponent;
   print($sql);
   $res = mysqli_query($conn, $sql);
