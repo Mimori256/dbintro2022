@@ -26,6 +26,17 @@ function add_index($moves) {
  }
 
 
+function convert_result($result) {
+  if ($result == 1) {
+    return "勝ち";
+  } else if ($result == -1) {
+    return "負け";
+  } else {
+    return "引き分け";
+  }
+}
+
+
 $id = $_GET['id'];
 
 $host = "localhost";
@@ -46,7 +57,7 @@ while ($row=mysqli_fetch_array($res)) {
   print("<td>".$row["date"]."</td>");
   print("<td>".$row["color"]."</td>");
   print("<td>".$row["timeRange"]."</td>");
-  print("<td>".$row["gameResult"]."</td>");
+  print("<td>".convert_result($row["gameResult"]."</td>"));
   print("<td>".$row["opening"]."</td>");
 }
 print("</tr>");

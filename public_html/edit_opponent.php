@@ -20,7 +20,6 @@ $name = add_quotations($_POST['name']);
 $misc = add_quotations($_POST['misc']);
 
 $sql = "update opponent set misc = $misc where name = $name";
-print($sql);
 $res = mysqli_query($conn, $sql);
 ?>
 <p>情報の編集が完了しました</p>

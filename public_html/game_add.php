@@ -114,7 +114,7 @@ $color = "";
 $tmp_list = "";
 
 if(isset($_POST["color"]) && ($_POST["color"] != "")) {
-  $color = add_quotations($_POST["color"]);
+  $color = ($_POST["color"]);
 }
 
 if(isset($_POST["pgn"]) && ($_POST["pgn"] != "")) {
@@ -133,16 +133,15 @@ $time_range = add_quotations($tmp_list[2]);
 $opening = add_quotations($tmp_list[3]);
 $moves = add_quotations($tmp_list[4]);
 $opponent = add_quotations($tmp_list[5]);
+$color = add_quotations($color);
 $values = join("," , [$date, $color,  $result, $time_range, $opening, $moves, $opponent]);
 $sql = "insert into result (date,  color, gameResult, timeRange, opening, moves, opponentName) values (" .$values. ")";
-print($sql);
 
 $res = mysqli_query($conn, $sql);
 #$mysqli_free_result($res);
 
 #対戦相手が新しい相手かチェックする
 $sql = 'select * from opponent';
-print($sql);
 $res = mysqli_query($conn, $sql);
 $name_list = [];
 $is_contain_name = false;
@@ -155,11 +154,9 @@ while ($row = mysqli_fetch_array($res)) {
   }
 }
 
-print_r($name_list);
 
 if (!$is_contain_name) {
   #新しくリストに追加
-  print("add_new_opponent");
   $overall_result = '';
   if ($result == 'true') {
     $overall_result = '"1-0"';
@@ -168,18 +165,18 @@ if (!$is_contain_name) {
   }
   $values = join(",", [$opponent, $overall_result]);
   $sql = 'insert into opponent (name, overallResult) values (' .$values. ")";
-  print($sql);
   $res = mysqli_query($conn, $sql);
   #$mysqli_free_result($res);
 } else {
   #そうではない場合、結果を書き換える
   $new_overall_result = add_quotations(update_overall_result($overall_result, $result));
   $sql = "update opponent set overallResult=" .$new_overall_result. "where name=" .$opponent;
-  print($sql);
   $res = mysqli_query($conn, $sql);
 }
 
 ?>
-
+<p>追加完了しました</p>
+<p><a href="result.php">result.php</a>または、<a href="search_form.html">search_form</a>から、確認できます。</p>
+<p><a href="index.html">トップに戻る</a></p>
 </body>
 </html>

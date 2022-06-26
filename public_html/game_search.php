@@ -15,6 +15,7 @@ function convert_result($result) {
 
 
 $host = "localhost";
+$is_contain_annotaion = false;
 if (!$conn = mysqli_connect($host, "s2110184", "hogehoge")){
     die("データベース接続エラー.<br />");
 }
@@ -107,11 +108,19 @@ if(isset($_POST["containAnnotation"]) && ($_POST["containAnnotation"] != "")) {
   }
 }
 
-$sql = "SELECT * FROM result, annotation ".$condition." ORDER BY id";
+$sql = "";
+
+if ($is_contain_annotaion) {
+  $sql = "SELECT *  FROM result, annotation ".$condition." ORDER BY id";
+} else {
+  $sql = "SELECT *  FROM result ".$condition." ORDER BY id";
+}
 $res = mysqli_query($conn, $sql);
+$id_list = [];
 print("<table border=\"1\">");
 print("<tr><td>ID</td><td>日付</td><td>色</td><td>タイムレンジ</td><td>結果</td><td>オープニング</td><td>対戦相手</td><td>詳細</td><td>削除</td></tr>");
 while($row = mysqli_fetch_array($res)) {
+    if (!in_array($row["id"], $id_list)) {
     print("<tr>");
     print("<td>".$row["id"]."</td>");
     print("<td>".$row["date"]."</td>");
@@ -123,6 +132,8 @@ while($row = mysqli_fetch_array($res)) {
     print("<td><a href= \"game_detail.php?id=".$row["id"]."\">詳細</a></td>");
     print("<td><a href= \"game_delete.php?id=".$row["id"]."\">削除</a></td>");
     print("</tr>");
+    array_push($id_list, $row["id"]);
+  }
 }
 print("</table>");
 mysqli_free_result($res);
