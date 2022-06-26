@@ -4,17 +4,20 @@
   </head>
   <body>
     <h1>ゲーム追加</h1>
-    <p>pgnファイルを下にペーストして、ボタンを押してください</p>
+    <p>アノテーションの無い、生のpgnファイル(lichessなどから取得できます)を下にペーストして、ボタンを押してください</p>
     <form action="game_add.php" method="post">
       <p>PGNファイル</p>
-      <textarea name="pgn"></textarea>
+      <textarea name="pgn" rows="5" cols="20"></textarea>
       <br>
       <p>あなたの駒の色</p>
       <select name="color" size="2">
-        <option value="white">white</option>
+        <option value="white" selected>white</option>
         <option value="black">black</option>
       </select>
       <br><br>
       <input type="submit" name="submit" value="追加">
+      <p>pgnファイルを持っていない場合、以下ページのサンプルpgnを、上のテキストボックスにコピペして操作を試すことができます</p>
+      <p> Ctrl+a で全選択して、コピーするとやりやすいです。</p>
+      <a href="sample.html">サンプルpgnのページ</a>
   </body>
 </html>
