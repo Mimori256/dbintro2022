@@ -11,7 +11,7 @@ if (!$conn = mysqli_connect($host, "s2110184", "hogehoge")){
 }
 mysqli_select_db($conn, "s2110184");
 mysqli_set_charset($conn, "utf8");
-$sql = "SELECT * FROM annotation";
+$sql = "SELECT * FROM annotation order by gameid";
 $res = mysqli_query($conn, $sql);
 while($row = mysqli_fetch_array($res)) {
     print("<tr>");
